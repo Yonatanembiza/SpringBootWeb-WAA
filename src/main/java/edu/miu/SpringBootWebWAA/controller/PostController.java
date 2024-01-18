@@ -1,7 +1,6 @@
 package edu.miu.SpringBootWebWAA.controller;
 
 import edu.miu.SpringBootWebWAA.entity.Post;
-import edu.miu.SpringBootWebWAA.repo.PostRepo;
 import edu.miu.SpringBootWebWAA.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
