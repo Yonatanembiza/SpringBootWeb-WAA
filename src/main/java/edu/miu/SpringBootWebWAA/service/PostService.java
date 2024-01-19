@@ -1,17 +1,18 @@
 package edu.miu.SpringBootWebWAA.service;
 
 import edu.miu.SpringBootWebWAA.entity.Post;
+import edu.miu.SpringBootWebWAA.entity.output.PostDto;
 
 import java.util.List;
 
 public interface PostService {
-    public List<Post> findAll();
+    List<PostDto> findAll();
 
-    public Post findById(int id);
+    PostDto findById(int id);
 
-    public Post save(Post p);
+    PostDto save(Post p);
 
-    public Post delete(int id);
+    PostDto delete(int id);
 
-    public Post update(int id, Post p);
+    PostDto update(int id, Post p);
 }

@@ -4,12 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+public class User {
     long id;
-    String content;
-    String title;
-    String author;
+    String name;
+    List<Post> posts;
 }
