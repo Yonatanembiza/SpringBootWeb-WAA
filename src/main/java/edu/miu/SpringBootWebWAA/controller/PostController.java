@@ -1,7 +1,6 @@
 package edu.miu.SpringBootWebWAA.controller;
 
 import edu.miu.SpringBootWebWAA.entity.Post;
-import edu.miu.SpringBootWebWAA.entity.output.PostDto;
 import edu.miu.SpringBootWebWAA.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,25 +11,25 @@ import java.util.List;
 @RequestMapping("/api/v1/posts")
 public class PostController {
     @Autowired
-    PostService postService;
+    private PostService postService;
     @GetMapping
-    public List<PostDto> findAll(){
-        return postService.findAll();
-    }
+    public List<Post> findAllPosts(){
+            return postService.findAllPosts();
+        }
     @GetMapping("/{id}")
-    public PostDto findById(@PathVariable("id") int id){
-        return postService.findById(id);
-    }
-    @DeleteMapping("/{id}")
-    public PostDto deleteById(@PathVariable("id") int id){
-        return postService.delete(id);
+    public Post findPostById(@PathVariable("id") int id){
+        return postService.findPostById(id);
     }
     @PostMapping
-    public PostDto save(@RequestBody Post p){
-        return postService.save(p);
+    public Post savePost(@RequestBody Post post){
+        return postService.savePost(post);
     }
     @PutMapping("/{id}")
-    public PostDto update(@PathVariable("id") int id, @RequestBody Post p){
-        return postService.update(id, p);
+    public Post updatePost(@PathVariable("id") int id, @RequestBody Post post){
+        return postService.updatePost(id, post);
+    }
+    @DeleteMapping("/{id}")
+    public Post deletePostById(@PathVariable("id") int id){
+        return postService.deletePostById(id);
     }
 }

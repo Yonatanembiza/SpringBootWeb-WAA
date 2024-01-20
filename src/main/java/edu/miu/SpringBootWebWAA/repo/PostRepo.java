@@ -1,18 +1,7 @@
 package edu.miu.SpringBootWebWAA.repo;
 
 import edu.miu.SpringBootWebWAA.entity.Post;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface PostRepo {
-    public List<Post> findAll();
-
-    public Post findById(int id);
-
-    public Post save(Post p);
-
-    public Post delete(int id);
-
-    public Post update(int id, Post p);
-
+public interface PostRepo extends JpaRepository<Post, Integer> {
 }

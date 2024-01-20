@@ -1,57 +1,55 @@
 package edu.miu.SpringBootWebWAA.service.Impl;
 
 import edu.miu.SpringBootWebWAA.entity.Post;
-import edu.miu.SpringBootWebWAA.entity.output.PostDto;
 import edu.miu.SpringBootWebWAA.repo.PostRepo;
 import edu.miu.SpringBootWebWAA.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements PostService {
     @Autowired
-    PostRepo postRepo;
+    private PostRepo postRepo;
     @Override
-    public List<PostDto> findAll() {
-        List<Post> posts = postRepo.findAll();
-        List<PostDto> postsDto = new ArrayList<>();
-        posts.forEach(new Consumer<Post>() {
-            @Override
-            public void accept(Post p) {
-                postsDto.add(new PostDto(p.getContent(), p.getTitle(), p.getAuthor()));
-            }
-        });
-//        posts.forEach(p -> {
-//            postsDto.add(new PostDto(p.getContent(), p.getTitle(), p.getAuthor()));
-//        });
-        return postsDto;
+    public List<Post> findAllPosts() {
+        return postRepo.findAll();
     }
 
     @Override
-    public PostDto findById(int id) {
-        Post post = postRepo.findById(id);
-        return new PostDto(post.getContent(), post.getTitle(), post.getAuthor());
+    public Post findPostById(int id) {
+        Optional<Post> postOptional = postRepo.findById(id);
+        return postOptional.orElse(null);
     }
 
     @Override
-    public PostDto save(Post p) {
-        Post savedPost = postRepo.save(p);
-        return new PostDto(savedPost.getContent(), savedPost.getTitle(), savedPost.getAuthor());
+    public Post savePost(Post post) {
+        return postRepo.save(post);
     }
 
     @Override
-    public PostDto delete(int id) {
-        Post deletedPost = postRepo.delete(id);
-        return new PostDto(deletedPost.getContent(), deletedPost.getTitle(), deletedPost.getAuthor());
+    public Post updatePost(int id, Post post) {
+        Optional<Post> existingPostOptional = postRepo.findById(id);
+        if(existingPostOptional.isPresent()){
+            Post existingPost = existingPostOptional.get();
+            existingPost.setId(post.getId());
+            existingPost.setContent(post.getContent());
+            existingPost.setTitle(post.getTitle());
+            existingPost.setAuthor(post.getAuthor());
+            return postRepo.save(existingPost);
+        }
+        return null;
     }
 
     @Override
-    public PostDto update(int id, Post p) {
-        Post updatedPost = postRepo.update(id, p);
-        return new PostDto(updatedPost.getContent(), updatedPost.getTitle(), updatedPost.getAuthor());
+    public Post deletePostById(int id) {
+        Optional<Post> existingPostOptional = postRepo.findById(id);
+        if(existingPostOptional.isPresent()){
+            postRepo.deleteById(id);
+            return existingPostOptional.get();
+        }
+        return null;
     }
 }
