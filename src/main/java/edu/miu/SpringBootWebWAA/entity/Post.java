@@ -20,4 +20,7 @@ public class Post {
     String author;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post", orphanRemoval = true)
     List<Comment> comments;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

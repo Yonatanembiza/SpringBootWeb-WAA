@@ -10,4 +10,5 @@ public interface PostService {
     Post savePost(Post post);
     Post updatePost(int id, Post post);
     Post deletePostById(int id);
+    List<Post> findPostsByTitle(String title);
 }

@@ -11,12 +11,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class User_ {
+@Table(name = "user_")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     String name;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="user", orphanRemoval = true)
     List<Post> posts;
 }

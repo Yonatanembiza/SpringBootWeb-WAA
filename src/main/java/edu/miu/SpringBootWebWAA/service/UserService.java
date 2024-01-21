@@ -1,14 +1,15 @@
 package edu.miu.SpringBootWebWAA.service;
 
-import edu.miu.SpringBootWebWAA.entity.User_;
+import edu.miu.SpringBootWebWAA.entity.User;
 
 import java.util.List;
 
 public interface UserService {
-    List<User_> findAllUsers();
-    User_ findUserById(int id);
-    User_ saveUser(User_ user);
-    User_ updateUser(int id, User_ user);
-    User_ deleteUserById(int id);
-    List<User_> findUsersWithMoreThanOnePosts();
+    List<User> findAllUsers();
+    User findUserById(int id);
+    User saveUser(User user);
+    User updateUser(int id, User user);
+    User deleteUserById(int id);
+    List<User> findUsersWithMoreThanOnePosts();
+    List<User> findUsersWithMoreThanNPosts(int numberOfPosts);
 }

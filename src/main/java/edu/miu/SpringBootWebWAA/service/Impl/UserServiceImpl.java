@@ -1,6 +1,6 @@
 package edu.miu.SpringBootWebWAA.service.Impl;
 
-import edu.miu.SpringBootWebWAA.entity.User_;
+import edu.miu.SpringBootWebWAA.entity.User;
 import edu.miu.SpringBootWebWAA.repo.UserRepo;
 import edu.miu.SpringBootWebWAA.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,26 +15,26 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepo userRepo;
     @Override
-    public List<User_> findAllUsers() {
+    public List<User> findAllUsers() {
         return userRepo.findAll();
     }
 
     @Override
-    public User_ findUserById(int id) {
-        Optional<User_> userOptional = userRepo.findById(id);
+    public User findUserById(int id) {
+        Optional<User> userOptional = userRepo.findById(id);
         return userOptional.orElse(null);
     }
 
     @Override
-    public User_ saveUser(User_ user) {
+    public User saveUser(User user) {
         return userRepo.save(user);
     }
 
     @Override
-    public User_ updateUser(int id, User_ user) {
-        Optional<User_> existingUserOptional = userRepo.findById(id);
+    public User updateUser(int id, User user) {
+        Optional<User> existingUserOptional = userRepo.findById(id);
         if(existingUserOptional.isPresent()){
-            User_ existingUser = existingUserOptional.get();
+            User existingUser = existingUserOptional.get();
             existingUser.setId(user.getId());
             existingUser.setName(user.getName());
             existingUser.setPosts(user.getPosts());
@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User_ deleteUserById(int id) {
-        Optional<User_> existingUserOptional = userRepo.findById(id);
+    public User deleteUserById(int id) {
+        Optional<User> existingUserOptional = userRepo.findById(id);
         if(existingUserOptional.isPresent()) {
             userRepo.deleteById(id);
             return existingUserOptional.get();
@@ -53,7 +53,13 @@ public class UserServiceImpl implements UserService {
         return null;
     }
     @Override
-    public List<User_> findUsersWithMoreThanOnePosts(){
+    public List<User> findUsersWithMoreThanOnePosts(){
         return userRepo.findUsersWithMoreThanOnePosts();
     }
+
+    @Override
+    public List<User> findUsersWithMoreThanNPosts(int numberOfPosts) {
+        return userRepo.findUsersWithMoreThanNPosts(numberOfPosts);
+    }
+
 }

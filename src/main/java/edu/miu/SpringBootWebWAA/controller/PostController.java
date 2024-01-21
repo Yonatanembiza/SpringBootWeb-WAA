@@ -32,4 +32,8 @@ public class PostController {
     public Post deletePostById(@PathVariable("id") int id){
         return postService.deletePostById(id);
     }
+    @GetMapping("/post-by-title")
+    public List<Post> findPostsByTitle(@RequestParam String title){
+        return postService.findPostsByTitle(title);
+    }
 }

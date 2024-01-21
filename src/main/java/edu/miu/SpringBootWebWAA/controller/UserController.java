@@ -1,7 +1,7 @@
 package edu.miu.SpringBootWebWAA.controller;
 
 import edu.miu.SpringBootWebWAA.entity.Post;
-import edu.miu.SpringBootWebWAA.entity.User_;
+import edu.miu.SpringBootWebWAA.entity.User;
 import edu.miu.SpringBootWebWAA.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,35 +15,39 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public List<User_> findAllUsers(){
+    public List<User> findAllUsers(){
         return userService.findAllUsers();
     }
     @GetMapping("/{id}")
-    public User_ findUserById(@PathVariable("id") int id){
+    public User findUserById(@PathVariable("id") int id){
         return userService.findUserById(id);
     }
     @GetMapping("/{id}/posts")
     public List<Post> findPostsByUserId(@PathVariable("id") int id){
-        User_ user = userService.findUserById(id);
+        User user = userService.findUserById(id);
         if(user != null){
             return user.getPosts();
         }
         return null;
     }
     @PostMapping
-    public User_ saveUser(@RequestBody User_ user){
+    public User saveUser(@RequestBody User user){
         return userService.saveUser(user);
     }
     @PutMapping("/{id}")
-    public User_ updateUser(@PathVariable("id") int id, @RequestBody User_ user){
+    public User updateUser(@PathVariable("id") int id, @RequestBody User user){
         return userService.updateUser(id, user);
     }
     @DeleteMapping("/{id}")
-    public User_ deleteUserById(@PathVariable("id") int id){
+    public User deleteUserById(@PathVariable("id") int id){
         return userService.deleteUserById(id);
     }
     @GetMapping("/multiple-posts")
-    public List<User_> findUsersWithMoreThanOnePosts(){
+    public List<User> findUsersWithMoreThanOnePosts(){
         return userService.findUsersWithMoreThanOnePosts();
+    }
+    @GetMapping("/multiple-posts-by-number")
+    public List<User> findUsersWithMoreThan_n_Posts(@RequestParam int numberOfPosts){
+        return userService.findUsersWithMoreThanNPosts(numberOfPosts);
     }
 }
