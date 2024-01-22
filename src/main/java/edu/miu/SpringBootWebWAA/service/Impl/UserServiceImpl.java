@@ -1,5 +1,7 @@
 package edu.miu.SpringBootWebWAA.service.Impl;
 
+import edu.miu.SpringBootWebWAA.entity.Comment;
+import edu.miu.SpringBootWebWAA.entity.Post;
 import edu.miu.SpringBootWebWAA.entity.User;
 import edu.miu.SpringBootWebWAA.repo.UserRepo;
 import edu.miu.SpringBootWebWAA.service.UserService;
@@ -62,4 +64,24 @@ public class UserServiceImpl implements UserService {
         return userRepo.findUsersWithMoreThanNPosts(numberOfPosts);
     }
 
+    @Override
+    public Comment findCommentByPostIdByUserId(int userId, int postId, int commentId) {
+        Optional<User> optionalUser = userRepo.findById(userId);
+        if(optionalUser.isPresent()){
+            User user = optionalUser.get();
+            Optional<Post> optionalPost = user.getPosts()
+                    .stream()
+                    .filter(post -> post.getId() == postId)
+                    .findFirst();
+            if(optionalPost.isPresent()){
+                Post post = optionalPost.get();
+                Optional<Comment> optionalComment = post.getComments()
+                        .stream()
+                        .filter(comment -> comment.getId() == commentId)
+                        .findFirst();
+                return optionalComment.orElse(null);
+            }
+        }
+        return null;
+    }
 }

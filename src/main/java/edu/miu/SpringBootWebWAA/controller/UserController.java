@@ -1,5 +1,6 @@
 package edu.miu.SpringBootWebWAA.controller;
 
+import edu.miu.SpringBootWebWAA.entity.Comment;
 import edu.miu.SpringBootWebWAA.entity.Post;
 import edu.miu.SpringBootWebWAA.entity.User;
 import edu.miu.SpringBootWebWAA.service.UserService;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("api/v1/users")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -49,5 +50,13 @@ public class UserController {
     @GetMapping("/multiple-posts-by-number")
     public List<User> findUsersWithMoreThan_n_Posts(@RequestParam int numberOfPosts){
         return userService.findUsersWithMoreThanNPosts(numberOfPosts);
+    }
+    @GetMapping("/{user_id}/posts/{post_id}/comments/{comment_id}")
+    public Comment findCommentByPostIdByUserId(
+            @PathVariable("user_id") int user_id,
+            @PathVariable("post_id") int post_id,
+            @PathVariable("comment_id") int comment_id
+    ){
+        return userService.findCommentByPostIdByUserId(user_id, post_id, comment_id);
     }
 }
