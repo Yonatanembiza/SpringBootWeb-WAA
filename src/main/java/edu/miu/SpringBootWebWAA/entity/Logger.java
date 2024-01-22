@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
 import java.util.Date;
 
 @Data
@@ -18,7 +17,7 @@ import java.util.Date;
 public class Logger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private int id;
+    private int id;
 //    TransactionId, Date, Time, Principle, Operation
 
     private String transactionId;
@@ -26,4 +25,13 @@ public class Logger {
     private String time;
     private String principle; // this will be a fake static user since we don't have one
     private String operation;
+
+    public Logger(String transactionID, Date date, String time, String principle, String operation) {
+        this.transactionId = transactionID;
+        this.date = date;
+        this.time = time;
+        this.principle = principle;
+        this.operation = operation;
+
+    }
 }

@@ -2,7 +2,6 @@ package edu.miu.SpringBootWebWAA.LoggingAspect;
 
 import edu.miu.SpringBootWebWAA.entity.Logger;
 import edu.miu.SpringBootWebWAA.repo.LoggerRepo;
-import jakarta.persistence.JoinTable;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.aspectj.lang.JoinPoint;
@@ -21,7 +20,10 @@ public class LoggingAspect {
     @Autowired
     private LoggerRepo loggerRepo;
 
-    @After("execution(* edu.miu.SpringBootWebWAA..*.*(..))")
+//    @After("execution(* edu.miu.SpringBootWebWAA..*.*(..))")
+//    edu/miu/SpringBootWebWAA/LoggingAspect/ExecutionTime.java
+//    @After("@annotation(edu.miu.SpringBootWebWAA.LoggingAspect)")
+    @After("@annotation(edu.miu.SpringBootWebWAA.LoggingAspect.annotations.ExecutionTime)")
     public void  loggerOperation(JoinPoint joinPoint){
         String transactionID = "txn "+System.currentTimeMillis();
         Date date = new Date();

@@ -1,5 +1,6 @@
 package edu.miu.SpringBootWebWAA.controller;
 
+import edu.miu.SpringBootWebWAA.LoggingAspect.annotations.ExecutionTime;
 import edu.miu.SpringBootWebWAA.entity.Comment;
 import edu.miu.SpringBootWebWAA.entity.Post;
 import edu.miu.SpringBootWebWAA.entity.User;
@@ -20,6 +21,7 @@ public class UserController {
         return userService.findAllUsers();
     }
     @GetMapping("/{id}")
+    @ExecutionTime
     public User findUserById(@PathVariable("id") int id){
         return userService.findUserById(id);
     }
