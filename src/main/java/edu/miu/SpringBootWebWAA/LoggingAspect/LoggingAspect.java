@@ -33,6 +33,7 @@ public class LoggingAspect {
 
         // creating logger entity
         Logger loggerEntity = new Logger(transactionID, date, time, principle, operation);
+
         loggerRepo.save(loggerEntity);
     }
 }
